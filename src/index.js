@@ -13,4 +13,5 @@ refs.formRef.addEventListener('submit', onFormSubmit);
 
 function onFormSubmit(e) {
   e.preventDefault();
+  // fetchPictures(query);
 }
