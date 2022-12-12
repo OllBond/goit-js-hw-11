@@ -1,8 +1,18 @@
-// import axios from 'axios';
+import axios from 'axios';
 
 // const BASE_URL = 'https://restcountries.com/v3.1/name/';
+
 // // іменований експорт функції
-// export function fetchCountries(name) {
+// export function () {
+
+// axios
+// return axios
+//   .get(
+//     `https://restcountries.com/v3.1/name/${name}?fields=name,capital,population,flags,languages`
+//   )
+//   .then(({ data }) => data);
+// }
+
 //   return fetch(
 //     `${BASE_URL}${name}?fields=name,capital,population,flags,languages`
 //   ).then(response => {
@@ -14,11 +24,3 @@
 //     }
 //     throw new Error(response.statusText);
 //   });
-
-// axios
-// return axios
-//   .get(
-//     `https://restcountries.com/v3.1/name/${name}?fields=name,capital,population,flags,languages`
-//   )
-//   .then(({ data }) => data);
-// }
