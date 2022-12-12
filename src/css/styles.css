@@ -25,28 +25,9 @@ li {
   padding: 0;
   margin: 0;
 }
-/* .country-info-name {
-  display: flex;
-} */
-.country-list {
-  font-size: 20px;
+.search-form {
+  text-align: center;
 }
-.country-list-info {
-  display: flex;
-  flex-direction: column;
-  font-size: 20px;
-}
-.country-list-item {
-  display: flex;
-  align-items: center;
-  gap: 20px;
-}
-.country-list-span {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-.country-list-signs {
-  display: inline;
-  font-weight: bold;
+.search-form-input {
+  width: 200px;
 }
