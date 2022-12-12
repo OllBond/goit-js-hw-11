@@ -1,5 +1,6 @@
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import axios from 'axios';
+import { fetchPictures } from './api';
 import './css/styles.css';
 
 const refs = {
