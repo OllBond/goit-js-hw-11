@@ -1,26 +1,15 @@
 import axios from 'axios';
 
-// const BASE_URL = 'https://restcountries.com/v3.1/name/';
+// const BASE_URL =
+//   'https://pixabay.com/api/?key=32018824-12fed2968cd63512e54ef9084';
 
-// // іменований експорт функції
-// export function () {
+const BASE_URL = 'https://pixabay.com/api/';
+const MY_KEY = '32018824-12fed2968cd63512e54ef9084';
 
-// axios
-// return axios
-//   .get(
-//     `https://restcountries.com/v3.1/name/${name}?fields=name,capital,population,flags,languages`
-//   )
-//   .then(({ data }) => data);
-// }
-
-//   return fetch(
-//     `${BASE_URL}${name}?fields=name,capital,population,flags,languages`
-//   ).then(response => {
-//     console.log(response);
-//     // якщо response.ok true
-//     if (response.ok) {
-//       // повертаємо розпарсений об'єкт
-//       return response.json();
-//     }
-//     throw new Error(response.statusText);
-//   });
+export function fetchPictures(query) {
+  return axios
+    .get(
+      `${BASE_URL}?key=${MY_KEY}&q=${query}&image_type=photo&orientation=horizontal&safesearch=true`
+    )
+    .then(({ data }) => data);
+}
