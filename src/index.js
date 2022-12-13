@@ -7,6 +7,7 @@ const refs = {
   formRef: document.querySelector('#search-form'),
   buttonRef: document.querySelector('button-search'),
   inputRef: document.querySelector('search-form-input'),
+  galleryRef: document.querySelector('.gallery'),
 };
 
 refs.formRef.addEventListener('submit', onFormSubmit);
@@ -23,6 +24,9 @@ function onFormSubmit(e) {
   // }
   fetchPictures(inputValue).then(res => {
     console.log(res);
+    const markup = createOnePictureMarkup(res);
+    refs.galleryRef.insertAdjacentElement('beforeend', markup);
+    return;
   });
   // if ( === []) {
   //   Notify.failure(
@@ -30,7 +34,31 @@ function onFormSubmit(e) {
   //   );
   // }
 }
+function createOnePictureMarkup(pictures = []) {
+  return pictures
+    .map(
+      picture => `
 
+      <div class="photo-card">
+  <img src="" alt="" loading="lazy" />
+  <div class="info">
+    <p class="info-item">
+      <b>Likes</b>
+    </p>
+    <p class="info-item">
+      <b>Views</b>
+    </p>
+    <p class="info-item">
+      <b>Comments</b>
+    </p>
+    <p class="info-item">
+      <b>Downloads</b>
+    </p>
+  </div>
+</div>`
+    )
+    .join('');
+}
 // HOMEWORK 10
 // function onInput(e) {
 //   // дані з інпута
