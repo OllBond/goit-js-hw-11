@@ -25,7 +25,7 @@ function onFormSubmit(e) {
   fetchPictures(inputValue).then(res => {
     console.log(res);
     const markup = createOnePictureMarkup(res);
-    refs.galleryRef.insertAdjacentElement('beforeend', markup);
+    refs.galleryRef.insertAdjacentHTML('beforeend', markup);
     return;
   });
   // if ( === []) {
