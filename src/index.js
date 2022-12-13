@@ -12,7 +12,7 @@ const refs = {
 
 refs.formRef.addEventListener('submit', onFormSubmit);
 
-let items = [];
+// let items = [];
 
 function onFormSubmit(e) {
   e.preventDefault();
@@ -22,37 +22,43 @@ function onFormSubmit(e) {
   // if (!inputValue) {
   //   return;
   // }
-  fetchPictures(inputValue).then(res => {
-    console.log(res);
-    const markup = createOnePictureMarkup(res);
-    refs.galleryRef.insertAdjacentHTML('beforeend', markup);
-    return;
-  });
-  // if ( === []) {
-  //   Notify.failure(
-  //     'Sorry, there are no images matching your search query. Please try again.'
-  //   );
-  // }
+  fetchPictures(inputValue)
+    .then(res => {
+      console.log(res);
+      // hits - це масив об'єктів
+      const markup = createOnePictureMarkup(res.hits);
+      refs.galleryRef.insertAdjacentHTML('beforeend', markup);
+      return;
+    })
+    // if ( === []) {
+    //   Notify.failure(
+    //     'Sorry, there are no images matching your search query. Please try again.'
+    //   );
+    // }
+    .catch(error => {
+      console.log(error);
+    });
 }
 function createOnePictureMarkup(pictures = []) {
   return pictures
     .map(
+      // picture - це об'єкт  picture.largeImageURL - ключ об'єкта
       picture => `
-
       <div class="photo-card">
-  <img src="" alt="" loading="lazy" />
+  <a class "gallery-link" href="${picture.largeImageURL}"></a>
+  <img class gallery-image src="${picture.webformatURL}" alt="${picture.tags}" loading="lazy" />
   <div class="info">
     <p class="info-item">
-      <b>Likes</b>
+      <b>Likes: ${picture.likes}</b>
     </p>
     <p class="info-item">
-      <b>Views</b>
+      <b>Views: ${picture.views}</b>
     </p>
     <p class="info-item">
-      <b>Comments</b>
+      <b>Comments: ${picture.comments}</b>
     </p>
     <p class="info-item">
-      <b>Downloads</b>
+      <b>Downloads: ${picture.downloads}</b>
     </p>
   </div>
 </div>`
