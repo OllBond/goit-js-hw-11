@@ -16,7 +16,7 @@ let items = [];
 function onFormSubmit(e) {
   e.preventDefault();
   // значення input у формі
-  const inputValue = e.target.elements.searchQuery.value;
+  const inputValue = e.target.elements.searchQuery.value.trim();
   console.log(inputValue);
   fetchPictures(inputValue);
 }
