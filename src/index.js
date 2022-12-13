@@ -45,8 +45,10 @@ function createOnePictureMarkup(pictures = []) {
       // picture - це об'єкт  picture.largeImageURL - ключ об'єкта
       picture => `
       <div class="photo-card">
-  <a class "gallery-link" href="${picture.largeImageURL}"></a>
+  <a class "gallery-link" href="${picture.largeImageURL}">
   <img class gallery-image src="${picture.webformatURL}" alt="${picture.tags}" loading="lazy" />
+  </a>
+  
   <div class="info">
     <p class="info-item">
       <b>Likes: ${picture.likes}</b>
