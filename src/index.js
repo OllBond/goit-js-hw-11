@@ -11,7 +11,12 @@ const refs = {
 
 refs.formRef.addEventListener('submit', onFormSubmit);
 
+let items = [];
+
 function onFormSubmit(e) {
   e.preventDefault();
-  // fetchPictures(query);
+  // значення input у формі
+  const inputValue = e.target.elements.searchQuery.value;
+  console.log(inputValue);
+  fetchPictures(inputValue);
 }
