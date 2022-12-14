@@ -3,6 +3,7 @@ import axios from 'axios';
 import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
 import { fetchPictures } from './api';
+import SearchApiService from './api';
 import './css/styles.css';
 
 const refs = {
@@ -13,6 +14,8 @@ const refs = {
   buttonLoadRef: document.querySelector('.load-more'),
 };
 
+const searchApiService = new SearchApiService();
+
 refs.formRef.addEventListener('submit', onFormSubmit);
 refs.buttonLoadRef.addEventListener('click', onLoadMoreBtn);
 // let items = [];
@@ -20,31 +23,41 @@ refs.buttonLoadRef.addEventListener('click', onLoadMoreBtn);
 function onFormSubmit(e) {
   e.preventDefault();
   // значення input у формі по name
-  const inputValue = e.target.elements.searchQuery.value.trim();
-  console.log(inputValue);
+  searchApiService.query = e.target.elements.searchQuery.value.trim();
   // if (!inputValue) {
   //   return;
   // }
-  fetchPictures(inputValue)
-    .then(res => {
-      console.log(res);
+  searchApiService
+    .fetchSearchPictures()
+    .then(data => {
       // hits - це масив об'єктів
-      const markup = createOnePictureMarkup(res.hits);
-      refs.galleryRef.insertAdjacentHTML('beforeend', markup);
-      return;
+      return data.hits;
     })
-    // if ( === []) {
-    //   Notify.failure(
-    //     'Sorry, there are no images matching your search query. Please try again.'
-    //   );
-    // }
+    .then(createOnePictureMarkup)
     .catch(error => {
-      console.log(error);
+      Notify.failure(
+        'Sorry, there are no images matching your search query. Please try again.'
+      );
+      return error;
     });
 }
-function onLoadMoreBtn() {}
+
+function onLoadMoreBtn() {
+  searchApiService
+    .fetchSearchPictures()
+    .then(data => {
+      return data.hits;
+    })
+    .then(createOnePictureMarkup)
+    .catch(error => {
+      Notify.failure(
+        'Sorry, there are no images matching your search query. Please try again.'
+      );
+      return error;
+    });
+}
 function createOnePictureMarkup(pictures = []) {
-  return pictures
+  const markup = pictures
     .map(
       // picture - це об'єкт  picture.largeImageURL - ключ об'єкта
       picture => `
@@ -70,6 +83,7 @@ function createOnePictureMarkup(pictures = []) {
 </div>`
     )
     .join('');
+  refs.galleryRef.insertAdjacentHTML('beforeend', markup);
 }
 
 function clearInput() {}
