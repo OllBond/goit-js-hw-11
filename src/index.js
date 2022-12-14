@@ -7,13 +7,14 @@ import './css/styles.css';
 
 const refs = {
   formRef: document.querySelector('#search-form'),
-  buttonRef: document.querySelector('button-search'),
+  buttonSearchRef: document.querySelector('button-search'),
   inputRef: document.querySelector('search-form-input'),
   galleryRef: document.querySelector('.gallery'),
+  buttonLoadRef: document.querySelector('.load-more'),
 };
 
 refs.formRef.addEventListener('submit', onFormSubmit);
-
+refs.buttonLoadRef.addEventListener('click', onLoadMoreBtn);
 // let items = [];
 
 function onFormSubmit(e) {
@@ -41,6 +42,7 @@ function onFormSubmit(e) {
       console.log(error);
     });
 }
+function onLoadMoreBtn() {}
 function createOnePictureMarkup(pictures = []) {
   return pictures
     .map(
@@ -69,6 +71,8 @@ function createOnePictureMarkup(pictures = []) {
     )
     .join('');
 }
+
+function clearInput() {}
 // HOMEWORK 10
 // function onInput(e) {
 //   // дані з інпута

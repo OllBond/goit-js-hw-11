@@ -9,7 +9,7 @@ const MY_KEY = '32018824-12fed2968cd63512e54ef9084';
 export function fetchPictures(query) {
   return axios
     .get(
-      `${BASE_URL}?key=${MY_KEY}&q=${query}&image_type=photo&orientation=horizontal&safesearch=true`
+      `${BASE_URL}?key=${MY_KEY}&q=${query}&image_type=photo&orientation=horizontal&safesearch=true&per_page=40&page=1`
     )
     .then(({ data }) => data);
 }
