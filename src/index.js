@@ -30,6 +30,7 @@ function onFormSubmit(e) {
   searchApiService
     .fetchSearchPictures()
     .then(hits => {
+      // очистка розмітки
       clearGalleryRef();
       appendPictureMarkup(hits);
     })
