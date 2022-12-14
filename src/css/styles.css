@@ -27,6 +27,7 @@ li {
 }
 .search-form {
   text-align: center;
+  margin-bottom: 15px;
 }
 .search-form-input {
   width: 200px;
