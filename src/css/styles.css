@@ -34,5 +34,7 @@ li {
   height: 27px;
 }
 .load-more {
-  text-align: center;
+  display: block;
+  margin-right: auto;
+  margin-left: auto;
 }

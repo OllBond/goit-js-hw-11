@@ -25,6 +25,12 @@ function onFormSubmit(e) {
 
   // значення input у формі по name
   searchApiService.query = e.target.elements.searchQuery.value.trim();
+
+  if (searchApiService.query === '') {
+    return Notify.failure(
+      'Sorry, there are no images matching your search query. Please try again.'
+    );
+  }
   // скидання сторінки
   searchApiService.resetPage();
   searchApiService
@@ -35,10 +41,10 @@ function onFormSubmit(e) {
       appendPictureMarkup(hits);
     })
     .catch(error => {
-      Notify.failure(
-        'Sorry, there are no images matching your search query. Please try again.'
-      );
-      return error;
+      console.log(error);
+      // Notify.failure(
+      //   'Sorry, there are no images matching your search query. Please try again.'
+      // );
     });
 }
 // однакова сторінка з'являється

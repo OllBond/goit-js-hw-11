@@ -1,5 +1,6 @@
 import axios from 'axios';
-
+const BASE_URL = 'https://pixabay.com/api/';
+const API_KEY = '32018824-12fed2968cd63512e54ef9084';
 export default class SearchApiService {
   constructor() {
     this.searchQuery = '';
@@ -9,22 +10,19 @@ export default class SearchApiService {
   async fetchSearchPictures() {
     console.log(this);
 
-    const BASE_URL = 'https://pixabay.com/api/';
-    const MY_KEY = '32018824-12fed2968cd63512e54ef9084';
-
     const res = await axios.get(
-      `${BASE_URL}?key=${MY_KEY}&q=${this.searchQuery}&image_type=photo&orientation=horizontal&safesearch=true&per_page=40&${this.page}`
+      `${BASE_URL}?key=${API_KEY}&q=${this.searchQuery}&image_type=photo&orientation=horizontal&safesearch=true&per_page=40&${this.page}`
     );
     const data = res.data;
     console.log(data);
     if (res.status !== 200) {
       throw new Error(res.status);
     }
-    // успішний результат фетча збільшуємо на 1
+
     this.incrementPage();
     return data.hits;
   }
-  // метод скидання сторінки, він може називатися якзавгодно хоч "x"
+  // метод збільшення на 1
   incrementPage() {
     this.page += 1;
   }
@@ -32,6 +30,7 @@ export default class SearchApiService {
   resetPage() {
     this.page = 1;
   }
+  // get & set контролює термін запиту
   get query() {
     return this.searchQuery;
   }
