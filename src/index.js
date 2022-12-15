@@ -47,6 +47,7 @@ function onFormSubmit(e) {
         clearGalleryRef();
         appendPictureMarkup(hits);
         loadMoreBTN.show();
+        lightbox.refresh();
       }
     })
     .catch(error => {
