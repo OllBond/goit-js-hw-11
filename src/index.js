@@ -5,20 +5,25 @@ import 'simplelightbox/dist/simple-lightbox.min.css';
 import { fetchPictures } from './api';
 import SearchApiService from './api';
 import './css/styles.css';
+import LoadMoreBTN from './load-more-btn';
 
 const refs = {
   formRef: document.querySelector('#search-form'),
   buttonSearchRef: document.querySelector('button-search'),
   inputRef: document.querySelector('search-form-input'),
   galleryRef: document.querySelector('.gallery'),
-  buttonLoadRef: document.querySelector('.load-more'),
 };
+
+const loadMoreBTN = new LoadMoreBTN({ selector: '.load-more' });
+console.log(loadMoreBTN);
+
+// на loadMoreBTN є об'єкт refs а в ньому є ключ button
+loadMoreBTN.refs.button.addEventListener('click', onLoadMoreBtn);
 
 const searchApiService = new SearchApiService();
 
 refs.formRef.addEventListener('submit', onFormSubmit);
-refs.buttonLoadRef.addEventListener('click', onLoadMoreBtn);
-// let items = [];
+// refs.buttonLoadRef.addEventListener('click', onLoadMoreBtn);
 
 function onFormSubmit(e) {
   e.preventDefault();
@@ -26,11 +31,11 @@ function onFormSubmit(e) {
   // значення input у формі по name
   searchApiService.query = e.target.elements.searchQuery.value.trim();
 
-  if (searchApiService.query === '') {
-    return Notify.failure(
-      'Sorry, there are no images matching your search query. Please try again.'
-    );
-  }
+  // if (searchApiService.query === '') {
+  //   return Notify.failure(
+  //     'Sorry, there are no images matching your search query. Please try again.'
+  //   );
+  // }
   // скидання сторінки
   searchApiService.resetPage();
   searchApiService
