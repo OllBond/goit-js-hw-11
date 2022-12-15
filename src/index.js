@@ -47,6 +47,14 @@ function onFormSubmit(e) {
       // очистка розмітки
       clearGalleryRef();
       appendPictureMarkup(hits);
+      loadMoreBTN.show();
+
+      if (refs.totalHits === 500) {
+        loadMoreBTN.hide();
+        Notify.info(
+          "We're sorry, but you've reached the end of search results."
+        );
+      }
     })
     .catch(error => {
       console.log(error);
