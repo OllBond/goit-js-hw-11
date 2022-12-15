@@ -42,11 +42,7 @@ function onFormSubmit(e) {
         Notify.failure(
           'Sorry, there are no images matching your search query. Please try again.'
         );
-      }
-      // else {
-      //   Notify.success(`Hooray! We found ${refs.totalHits} images.`);
-      // }
-      else {
+      } else {
         // очистка розмітки
         clearGalleryRef();
         appendPictureMarkup(hits);
@@ -57,7 +53,7 @@ function onFormSubmit(e) {
       console.log(error);
     });
 }
-// однакова сторінка з'являється
+
 function onLoadMoreBtn() {
   searchApiService.fetchSearchPictures().then(appendPictureMarkup);
 
