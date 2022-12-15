@@ -34,44 +34,40 @@ function onFormSubmit(e) {
   // значення input у формі по name
   searchApiService.query = e.target.elements.searchQuery.value.trim();
 
-  // if (searchApiService.query === '') {
-  //   return Notify.failure(
-  //     'Sorry, there are no images matching your search query. Please try again.'
-  //   );
-  // }
   // скидання сторінки
   searchApiService.resetPage();
   searchApiService
     .fetchSearchPictures()
     .then(hits => {
+      // якщо бекенд повертає порожній масив
+      if (hits.length === 0) {
+        Notify.failure(
+          'Sorry, there are no images matching your search query. Please try again.'
+        );
+      }
+      // else {
+      //   Notify.success(`Hooray! We found ${refs.totalHits} images.`);
+      // }
+      else {
+      }
       // очистка розмітки
       clearGalleryRef();
       appendPictureMarkup(hits);
       loadMoreBTN.show();
-
-      if (refs.totalHits === 500) {
-        loadMoreBTN.hide();
-        Notify.info(
-          "We're sorry, but you've reached the end of search results."
-        );
-      }
     })
     .catch(error => {
       console.log(error);
-      // Notify.failure(
-      //   'Sorry, there are no images matching your search query. Please try again.'
-      // );
     });
 }
 // однакова сторінка з'являється
 function onLoadMoreBtn() {
   searchApiService.fetchSearchPictures().then(appendPictureMarkup);
 
-  // catch (error) {
-  //   Notify.failure(
-  //     'Sorry, there are no images matching your search query. Please try again.'
+  // if () {
+  //   loadMoreBTN.hide();
+  //   Notify.info(
+  //     "We're sorry, but you've reached the end of search results."
   //   );
-  //   return error;
   // }
 }
 function createOnePictureMarkup(pictures = []) {
@@ -101,7 +97,6 @@ function createOnePictureMarkup(pictures = []) {
 </div>`
     )
     .join('');
-  // refs.galleryRef.insertAdjacentHTML('beforeend', markup);
 }
 
 function appendPictureMarkup(hits) {
