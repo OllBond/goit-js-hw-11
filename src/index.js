@@ -1,8 +1,6 @@
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
-import axios from 'axios';
 import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
-import { fetchPictures } from './api';
 import SearchApiService from './api';
 import './css/styles.css';
 import LoadMoreBTN from './load-more-btn';
@@ -49,11 +47,11 @@ function onFormSubmit(e) {
       //   Notify.success(`Hooray! We found ${refs.totalHits} images.`);
       // }
       else {
+        // очистка розмітки
+        clearGalleryRef();
+        appendPictureMarkup(hits);
+        loadMoreBTN.show();
       }
-      // очистка розмітки
-      clearGalleryRef();
-      appendPictureMarkup(hits);
-      loadMoreBTN.show();
     })
     .catch(error => {
       console.log(error);
@@ -98,6 +96,10 @@ function createOnePictureMarkup(pictures = []) {
     )
     .join('');
 }
+const lightbox = new SimpleLightbox('.gallery a', {
+  captionsData: 'alt',
+  captionDelay: 250,
+});
 
 function appendPictureMarkup(hits) {
   refs.galleryRef.insertAdjacentHTML('beforeend', createOnePictureMarkup(hits));
