@@ -1,7 +1,11 @@
 export default class LoadMoreBTN {
   constructor({ selector, hidden = false }) {
     this.refs = this.getRefs(selector);
-    hidden && this.hide();
+    // hidden && this.hide();
+    //  hidden && this.hide() те саме що
+    if (hidden) {
+      this.hide();
+    }
   }
   getRefs(selector) {
     const refs = {};

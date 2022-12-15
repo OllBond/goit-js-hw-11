@@ -14,7 +14,10 @@ const refs = {
   galleryRef: document.querySelector('.gallery'),
 };
 
-const loadMoreBTN = new LoadMoreBTN({ selector: '.load-more' });
+const loadMoreBTN = new LoadMoreBTN({
+  selector: '.load-more',
+  hidden: true,
+});
 console.log(loadMoreBTN);
 
 // на loadMoreBTN є об'єкт refs а в ньому є ключ button
