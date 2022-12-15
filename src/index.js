@@ -16,7 +16,6 @@ const loadMoreBTN = new LoadMoreBTN({
   selector: '.load-more',
   hidden: true,
 });
-console.log(loadMoreBTN);
 
 // на loadMoreBTN є об'єкт refs а в ньому є ключ button
 loadMoreBTN.refs.button.addEventListener('click', onLoadMoreBtn);
