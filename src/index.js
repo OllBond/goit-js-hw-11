@@ -79,7 +79,7 @@ function createOnePictureMarkup(pictures = []) {
       picture => `
       <div class="photo-card">
   <a class "gallery-link" href="${picture.largeImageURL}">
-  <img class gallery-image src="${picture.webformatURL}" alt="${picture.tags}" loading="lazy" />
+  <img class "gallery-image" src="${picture.webformatURL}" alt="${picture.tags}" loading="lazy" />
   </a>
   
   <div class="info">

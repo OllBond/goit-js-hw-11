@@ -51,4 +51,8 @@ button {
 }
 .gallery {
   max-width: 1140px;
+  display: flex;
+}
+.gallery-image {
+  width: 100%;
 }
