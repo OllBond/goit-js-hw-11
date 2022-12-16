@@ -8,7 +8,7 @@ import LoadMoreBTN from './load-more-btn';
 const refs = {
   formRef: document.querySelector('#search-form'),
   buttonSearchRef: document.querySelector('button-search'),
-  inputRef: document.querySelector('search-form-input'),
+  // inputRef: document.querySelector('search-form-input'),
   galleryRef: document.querySelector('.gallery'),
 };
 
@@ -17,13 +17,11 @@ const loadMoreBTN = new LoadMoreBTN({
   hidden: true,
 });
 
-// на loadMoreBTN є об'єкт refs а в ньому є ключ button
-loadMoreBTN.refs.button.addEventListener('click', onLoadMoreBtn);
-
 const searchApiService = new SearchApiService();
 
 refs.formRef.addEventListener('submit', onFormSubmit);
-// refs.buttonLoadRef.addEventListener('click', onLoadMoreBtn);
+// на loadMoreBTN є об'єкт refs а в ньому є ключ button
+loadMoreBTN.refs.button.addEventListener('click', onLoadMoreBtn);
 
 function onFormSubmit(e) {
   e.preventDefault();
@@ -33,6 +31,9 @@ function onFormSubmit(e) {
 
   // скидання сторінки
   searchApiService.resetPage();
+  // очистка розмітки
+  clearGalleryRef();
+  fetchPictures();
   searchApiService
     .fetchSearchPictures()
     .then(hits => {
@@ -42,11 +43,8 @@ function onFormSubmit(e) {
           'Sorry, there are no images matching your search query. Please try again.'
         );
       } else {
-        // очистка розмітки
-        clearGalleryRef();
-        appendPictureMarkup(hits);
-        loadMoreBTN.show();
-        lightbox.refresh();
+        // error we found undefound!!!
+        Notify.success(`Hooray! We found ${refs.totalHits} images.`);
       }
     })
     .catch(error => {
@@ -55,14 +53,21 @@ function onFormSubmit(e) {
 }
 
 function onLoadMoreBtn() {
-  searchApiService.fetchSearchPictures().then(appendPictureMarkup);
-
+  fetchPictures();
   // if () {
   //   loadMoreBTN.hide();
   //   Notify.info(
   //     "We're sorry, but you've reached the end of search results."
   //   );
   // }
+}
+
+function fetchPictures() {
+  searchApiService.fetchSearchPictures().then(hits => {
+    appendPictureMarkup(hits);
+    loadMoreBTN.show();
+    lightbox.refresh();
+  });
 }
 function createOnePictureMarkup(pictures = []) {
   return pictures
