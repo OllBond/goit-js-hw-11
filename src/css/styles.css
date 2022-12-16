@@ -34,7 +34,8 @@ button {
   justify-content: center;
   align-items: center;
   gap: 15px;
-  background-color: blue;
+  background-color: skyblue;
+  margin-bottom: 20px;
 }
 
 .search-form-input {
@@ -50,9 +51,17 @@ button {
   display: none;
 }
 .gallery {
-  max-width: 1140px;
+  max-width: 1200px;
   display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+
+  margin-left: auto;
+  margin-right: auto;
 }
 .gallery-image {
   width: 100%;
 }
+/* .info {
+
+} */
