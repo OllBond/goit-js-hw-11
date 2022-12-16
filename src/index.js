@@ -34,11 +34,13 @@ function onFormSubmit(e) {
   // очистка розмітки
   clearGalleryRef();
   fetchPictures();
+
   searchApiService
     .fetchSearchPictures()
     .then(hits => {
       // якщо бекенд повертає порожній масив
       if (hits.length === 0) {
+        loadMoreBTN.hide();
         Notify.failure(
           'Sorry, there are no images matching your search query. Please try again.'
         );
