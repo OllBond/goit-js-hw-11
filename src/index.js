@@ -8,7 +8,6 @@ import LoadMoreBTN from './load-more-btn';
 const refs = {
   formRef: document.querySelector('#search-form'),
   buttonSearchRef: document.querySelector('button-search'),
-  // inputRef: document.querySelector('search-form-input'),
   galleryRef: document.querySelector('.gallery'),
 };
 
@@ -23,7 +22,7 @@ refs.formRef.addEventListener('submit', onFormSubmit);
 // на loadMoreBTN є об'єкт refs а в ньому є ключ button
 loadMoreBTN.refs.button.addEventListener('click', onLoadMoreBtn);
 
-function onFormSubmit(e) {
+async function onFormSubmit(e) {
   e.preventDefault();
 
   // значення input у формі по name
@@ -36,9 +35,9 @@ function onFormSubmit(e) {
   searchApiService.resetPage();
   // очистка розмітки
   clearGalleryRef();
-  fetchPictures();
+  const pictures = await fetchPictures();
 
-  searchApiService
+  const serchApi = await searchApiService
     .fetchSearchPictures()
     .then(hits => {
       // якщо бекенд повертає порожній масив
@@ -57,8 +56,8 @@ function onFormSubmit(e) {
     });
 }
 
-function onLoadMoreBtn() {
-  fetchPictures();
+async function onLoadMoreBtn() {
+  const onLoadMore = await fetchPictures();
   // if () {
   //   loadMoreBTN.hide();
   //   Notify.info(
@@ -67,12 +66,14 @@ function onLoadMoreBtn() {
   // }
 }
 
-function fetchPictures() {
-  searchApiService.fetchSearchPictures().then(hits => {
-    appendPictureMarkup(hits);
-    loadMoreBTN.show();
-    lightbox.refresh();
-  });
+async function fetchPictures() {
+  const fetchPictures = await searchApiService
+    .fetchSearchPictures()
+    .then(hits => {
+      appendPictureMarkup(hits);
+      loadMoreBTN.show();
+      lightbox.refresh();
+    });
 }
 function createOnePictureMarkup(pictures = []) {
   return pictures
