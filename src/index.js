@@ -35,11 +35,13 @@ async function onFormSubmit(e) {
   searchApiService.resetPage();
   // очистка розмітки
   clearGalleryRef();
+
   const pictures = await fetchPictures();
 
   const serchApi = await searchApiService
     .fetchSearchPictures()
     .then(hits => {
+      // console.log(hits);
       // якщо бекенд повертає порожній масив
       if (hits.length === 0) {
         loadMoreBTN.hide();
@@ -71,8 +73,8 @@ async function fetchPictures() {
     .fetchSearchPictures()
     .then(hits => {
       appendPictureMarkup(hits);
-      loadMoreBTN.show();
       lightbox.refresh();
+      loadMoreBTN.show();
     });
 }
 function createOnePictureMarkup(pictures = []) {
