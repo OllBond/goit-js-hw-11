@@ -28,7 +28,10 @@ function onFormSubmit(e) {
 
   // значення input у формі по name
   searchApiService.query = e.target.elements.searchQuery.value.trim();
-
+  // якщо пустий рядок
+  if (!searchApiService.query) {
+    return;
+  }
   // скидання сторінки
   searchApiService.resetPage();
   // очистка розмітки
@@ -38,9 +41,9 @@ function onFormSubmit(e) {
   searchApiService
     .fetchSearchPictures()
     .then(hits => {
-      // якщо бекенд повертає порожній масив
       if (hits.length === 0) {
-        loadMoreBTN.hide();
+        // якщо бекенд повертає порожній масив
+        // loadMoreBTN.hide();
         Notify.failure(
           'Sorry, there are no images matching your search query. Please try again.'
         );
