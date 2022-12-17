@@ -41,17 +41,16 @@ function onFormSubmit(e) {
   searchApiService
     .fetchSearchPictures()
     .then(hits => {
+      // якщо бекенд повертає порожній масив
       if (hits.length === 0) {
-        // якщо бекенд повертає порожній масив
-        // loadMoreBTN.hide();
+        loadMoreBTN.hide();
         Notify.failure(
           'Sorry, there are no images matching your search query. Please try again.'
         );
+      } else {
+        // error we found undefound!!!
+        Notify.success(`Hooray! We found ${refs.totalHits} images.`);
       }
-      // else {
-      //   // error we found undefound!!!
-      //   Notify.success(`Hooray! We found ${refs.totalHits} images.`);
-      // }
     })
     .catch(error => {
       console.log(error);
