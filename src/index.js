@@ -41,7 +41,6 @@ async function onFormSubmit(e) {
   const serchApi = await searchApiService
     .fetchSearchPictures()
     .then(hits => {
-      // console.log(hits);
       // якщо бекенд повертає порожній масив
       if (hits.length === 0) {
         loadMoreBTN.hide();
