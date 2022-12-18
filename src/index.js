@@ -24,7 +24,7 @@ loadMoreBTN.refs.button.addEventListener('click', onLoadMoreBtn);
 
 async function onFormSubmit(e) {
   e.preventDefault();
-
+  loadMoreBTN.hide();
   // значення input у формі по name
   searchApiService.query = e.target.elements.searchQuery.value.trim();
   // якщо пустий рядок
@@ -36,29 +36,11 @@ async function onFormSubmit(e) {
   // очистка розмітки
   clearGalleryRef();
 
-  const pictures = await fetchPictures();
-
-  const serchApi = await searchApiService
-    .fetchSearchPictures()
-    .then(hits => {
-      // якщо бекенд повертає порожній масив
-      if (hits.length === 0) {
-        loadMoreBTN.hide();
-        Notify.failure(
-          'Sorry, there are no images matching your search query. Please try again.'
-        );
-      } else {
-        // error we found undefound!!!
-        Notify.success(`Hooray! We found ${refs.totalHits} images.`);
-      }
-    })
-    .catch(error => {
-      console.log(error);
-    });
+  await fetchPictures();
 }
 
 async function onLoadMoreBtn() {
-  const onLoadMore = await fetchPictures();
+  await fetchPictures();
   // if () {
   //   loadMoreBTN.hide();
   //   Notify.info(
@@ -68,13 +50,21 @@ async function onLoadMoreBtn() {
 }
 
 async function fetchPictures() {
-  const fetchPictures = await searchApiService
-    .fetchSearchPictures()
-    .then(hits => {
-      appendPictureMarkup(hits);
-      lightbox.refresh();
-      loadMoreBTN.show();
-    });
+  await searchApiService.fetchSearchPictures().then(data => {
+    if (data.hits.length === 0) {
+      Notify.failure(
+        'Sorry, there are no images matching your search query. Please try again.'
+      );
+      return;
+    }
+
+    // error we found undefined!!!
+    Notify.success(`Hooray! We found ${data.totalHits} images.`);
+    appendPictureMarkup(data.hits);
+    searchApiService.incrementPage();
+    lightbox.refresh();
+    loadMoreBTN.show();
+  });
 }
 function createOnePictureMarkup(pictures = []) {
   return pictures

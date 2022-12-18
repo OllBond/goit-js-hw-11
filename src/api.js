@@ -20,8 +20,7 @@ export default class SearchApiService {
       throw new Error(res.status);
     }
 
-    this.incrementPage();
-    return data.hits;
+    return data;
   }
   // метод збільшення на 1
   incrementPage() {
