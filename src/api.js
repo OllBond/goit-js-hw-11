@@ -6,12 +6,13 @@ export default class SearchApiService {
     this.searchQuery = '';
     // значення page зберігаємо як ключ об'єкта
     this.page = 1;
+    this.per_page = 40;
   }
   async fetchSearchPictures() {
     console.log(this);
 
     const res = await axios.get(
-      `${BASE_URL}?key=${API_KEY}&q=${this.searchQuery}&image_type=photo&orientation=horizontal&safesearch=true&per_page=40&page=${this.page}`
+      `${BASE_URL}?key=${API_KEY}&q=${this.searchQuery}&image_type=photo&orientation=horizontal&safesearch=true&per_page=${this.per_page}&page=${this.page}`
     );
     const data = res.data;
     console.log(data);
