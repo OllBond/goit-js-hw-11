@@ -42,12 +42,6 @@ async function onFormSubmit(e) {
 
 async function onLoadMoreBtn() {
   await fetchPictures();
-  // if () {
-  //   loadMoreBTN.hide();
-  //   Notify.info(
-  //     "We're sorry, but you've reached the end of search results."
-  //   );
-  // }
 }
 
 async function fetchPictures() {
@@ -73,13 +67,14 @@ async function fetchPictures() {
         Notify.info(
           "We're sorry, but you've reached the end of search results."
         );
+        return;
       }
-      return;
     })
     .catch(error => {
       return error;
     });
 }
+
 function createOnePictureMarkup(pictures = []) {
   return pictures
     .map(
