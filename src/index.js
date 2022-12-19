@@ -24,6 +24,7 @@ loadMoreBTN.refs.button.addEventListener('click', onLoadMoreBtn);
 
 async function onFormSubmit(e) {
   e.preventDefault();
+
   loadMoreBTN.hide();
   // значення input у формі по name
   searchApiService.query = e.target.elements.searchQuery.value.trim();
@@ -57,8 +58,6 @@ async function fetchPictures() {
       );
       return;
     }
-
-    // error we found undefined!!!
     Notify.success(`Hooray! We found ${data.totalHits} images.`);
     appendPictureMarkup(data.hits);
     searchApiService.incrementPage();
