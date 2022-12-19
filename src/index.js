@@ -51,19 +51,34 @@ async function onLoadMoreBtn() {
 }
 
 async function fetchPictures() {
-  await searchApiService.fetchSearchPictures().then(data => {
-    if (data.hits.length === 0) {
-      Notify.failure(
-        'Sorry, there are no images matching your search query. Please try again.'
-      );
+  await searchApiService
+    .fetchSearchPictures()
+    .then(data => {
+      if (data.hits.length === 0) {
+        Notify.failure(
+          'Sorry, there are no images matching your search query. Please try again.'
+        );
+        return;
+      }
+      Notify.success(`Hooray! We found ${data.totalHits} images.`);
+      appendPictureMarkup(data.hits);
+      searchApiService.incrementPage();
+      lightbox.refresh();
+      loadMoreBTN.show();
+    })
+    .then(data => {
+      const totalPage = data.totalHits / this.per_page;
+      if (this.page >= totalPage) {
+        loadMoreBTN.hide();
+        Notify.info(
+          "We're sorry, but you've reached the end of search results."
+        );
+      }
       return;
-    }
-    Notify.success(`Hooray! We found ${data.totalHits} images.`);
-    appendPictureMarkup(data.hits);
-    searchApiService.incrementPage();
-    lightbox.refresh();
-    loadMoreBTN.show();
-  });
+    })
+    .catch(error => {
+      return error;
+    });
 }
 function createOnePictureMarkup(pictures = []) {
   return pictures
