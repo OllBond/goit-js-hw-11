@@ -26,7 +26,7 @@ export default class SearchApiService {
   incrementPage() {
     this.page += 1;
   }
-  // метод, який скидає сторінку в одиничку
+  // метод, який скидає сторінку на 1-шу сторінку
   resetPage() {
     this.page = 1;
   }
